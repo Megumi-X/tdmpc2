@@ -87,7 +87,7 @@ def evaluate(cfg: dict):
 			ep_successes.append(info['success'])
 			if cfg.save_video:
 				imageio.mimsave(
-					os.path.join(video_dir, f'{task}-{i}.mp4'), frames, fps=15)
+					os.path.join(video_dir, f'{task}-{i}.mp4'), frames, fps=30)
 		ep_rewards = np.mean(ep_rewards)
 		ep_successes = np.mean(ep_successes)
 		if cfg.multitask:

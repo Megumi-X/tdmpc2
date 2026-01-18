@@ -1,0 +1,207 @@
+<mujoco model="propeller_fluid_test">
+  <compiler angle="radian" meshdir="/home/xiaoyu/BodyGen/assets/meshes/" autolimits="true"/>
+  <option timestep="0.004" gravity="0 0 -9.8" density="1.225" viscosity="0.00015" integrator="RK4" iterations="50"/>
+  <visual>
+    <global offwidth="1000" offheight="1000"/>
+    <quality shadowsize="16384"/>
+    <headlight ambient="0.4 0.4 0.4" diffuse="0.8 0.8 0.8" specular="0.1 0.1 0.1"/>
+    <map znear="0.001"/>
+  </visual>
+  <default class="main">
+    <joint limited="false" armature="1"/>
+    <geom conaffinity="0" friction="1 0.5 0.5" margin="0.01" density="600" rgba="0.7 0.5 0.3 1"/>
+  </default>
+  <asset>
+    <texture type="skybox" name="skybox" builtin="gradient" mark="random" rgb1="0.2 0.3 0.4" rgb2="0 0 0" markrgb="1 1 1" width="800" height="4800"/>
+    <texture type="2d" name="grid" builtin="checker" mark="edge" rgb1="0.2 0.1 0.2" rgb2="0.3 0.2 0.3" markrgb="0.3 0.2 0.3" width="300" height="300"/>
+    <material name="grid" texture="grid" texuniform="true" reflectance="0.2"/>
+    <material name="self" rgba="0.7 0.5 0.3 1"/>
+    <mesh name="wing" file="wing.stl"/>
+    <hfield name="floor" size="400 400 40 0.1" file="/home/xiaoyu/BodyGen/assets/mujoco_terrains/pit_terrain.png"/>
+  </asset>
+  <worldbody>
+    <geom name="floor" pos="0 0 -40" type="hfield" conaffinity="1" material="grid" rgba="1 1 1 1" hfield="floor"/>
+    <geom name="ceil_0" size="200 400 98.6" pos="-200 0 100" type="box" conaffinity="1" rgba="0.5 0.9 0.7 1"/>
+    <geom name="ceil_1" size="200 400 98.6" pos="260 0 100" type="box" conaffinity="1" rgba="0.5 0.9 0.7 1"/>
+    <light pos="-30 0 130" dir="0.22486 0 -0.974391" directional="true" cutoff="100" exponent="1" diffuse="1 1 1" specular="0.1 0.1 0.1"/>
+    <body name="0" pos="0 0 0" gravcomp="0">
+      <joint name="root" type="free" margin="0.01" armature="0"/>
+      <geom name="0_0" size="0.06 1" pos="1 0 0.2" quat="0.707107 0 -0.707107 0" type="capsule" fluidshape="ellipsoid"/>
+      <geom name="0_1" size="0.06 1" pos="1 1 0.2" quat="0.707107 0.707107 0 0" type="capsule" fluidshape="ellipsoid"/>
+      <geom name="0_2" size="0.06 1" pos="1 2 0.2" quat="0.707107 0 -0.707107 0" type="capsule" fluidshape="ellipsoid"/>
+      <camera name="track" pos="0 -6 1" quat="0.773342 0.633989 0 0" mode="trackcom"/>
+      <body name="1" pos="0 0 0.2" gravcomp="0">
+        <joint name="1_joint" pos="0 0 0.3" axis="0 0 1"/>
+        <geom name="1" size="0.06 0.225" pos="0 0 0.225" quat="0 1 0 0" type="capsule" fluidshape="ellipsoid"/>
+        <body name="11" pos="0 0.06 0.45" gravcomp="0">
+          <joint name="11_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+          <geom name="11" quat="0.991445 0 0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+          <body name="111" pos="0 0.3 0" gravcomp="0">
+            <joint name="111_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+            <geom name="111" quat="0.991445 0 0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            <body name="1111" pos="0 0.3 0" gravcomp="0">
+              <joint name="1111_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+              <geom name="1111" quat="0.991445 0 0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            </body>
+          </body>
+        </body>
+        <body name="21" pos="0 -0.06 0.45" gravcomp="0">
+          <joint name="21_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+          <geom name="21" pos="0 -0.3 0" quat="0.991445 0 -0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+          <body name="121" pos="0 -0.3 0" gravcomp="0">
+            <joint name="121_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+            <geom name="121" pos="0 -0.3 0" quat="0.991445 0 -0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            <body name="1121" pos="0 -0.3 0" gravcomp="0">
+              <joint name="1121_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+              <geom name="1121" pos="0 -0.3 0" quat="0.991445 0 -0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="2" pos="2 0 0.2" gravcomp="0">
+        <joint name="2_joint" pos="0 0 0.3" axis="0 0 1"/>
+        <geom name="2" size="0.06 0.225" pos="0 0 0.225" quat="0 1 0 0" type="capsule" fluidshape="ellipsoid"/>
+        <body name="12" pos="0 0.06 0.45" gravcomp="0">
+          <joint name="12_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+          <geom name="12" quat="0.991445 0 -0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+          <body name="112" pos="0 0.3 0" gravcomp="0">
+            <joint name="112_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+            <geom name="112" quat="0.991445 0 -0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            <body name="1112" pos="0 0.3 0" gravcomp="0">
+              <joint name="1112_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+              <geom name="1112" quat="0.991445 0 -0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            </body>
+          </body>
+        </body>
+        <body name="22" pos="0 -0.06 0.45" gravcomp="0">
+          <joint name="22_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+          <geom name="22" pos="0 -0.3 0" quat="0.991445 0 0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+          <body name="122" pos="0 -0.3 0" gravcomp="0">
+            <joint name="122_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+            <geom name="122" pos="0 -0.3 0" quat="0.991445 0 0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            <body name="1122" pos="0 -0.3 0" gravcomp="0">
+              <joint name="1122_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+              <geom name="1122" pos="0 -0.3 0" quat="0.991445 0 0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="3" pos="0 2 0.2" gravcomp="0">
+        <joint name="3_joint" pos="0 0 0.3" axis="0 0 1"/>
+        <geom name="3" size="0.06 0.225" pos="0 0 0.225" quat="0 1 0 0" type="capsule" fluidshape="ellipsoid"/>
+        <body name="13" pos="0 0.06 0.45" gravcomp="0">
+          <joint name="13_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+          <geom name="13" quat="0.991445 0 -0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+          <body name="113" pos="0 0.3 0" gravcomp="0">
+            <joint name="113_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+            <geom name="113" quat="0.991445 0 -0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            <body name="1113" pos="0 0.3 0" gravcomp="0">
+              <joint name="1113_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+              <geom name="1113" quat="0.991445 0 -0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            </body>
+          </body>
+        </body>
+        <body name="23" pos="0 -0.36 0.45" gravcomp="0">
+          <joint name="23_joint" pos="0 0.3 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+          <geom name="23" quat="0.991445 0 0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+          <body name="123" pos="0 -0.3 0" gravcomp="0">
+            <joint name="123_joint" pos="0 0.3 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+            <geom name="123" quat="0.991445 0 0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            <body name="1123" pos="0 -0.3 0" gravcomp="0">
+              <joint name="1123_joint" pos="0 0.3 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+              <geom name="1123" quat="0.991445 0 0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="4" pos="2 2 0.2" gravcomp="0">
+        <joint name="4_joint" pos="0 0 0.3" axis="0 0 1"/>
+        <geom name="4" size="0.06 0.225" pos="0 0 0.225" quat="0 1 0 0" type="capsule" fluidshape="ellipsoid"/>
+        <body name="14" pos="0 0.06 0.45" gravcomp="0">
+          <joint name="14_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+          <geom name="14" quat="0.991445 0 0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+          <body name="114" pos="0 0.3 0" gravcomp="0">
+            <joint name="114_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+            <geom name="114" quat="0.991445 0 0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            <body name="1114" pos="0 0.3 0" gravcomp="0">
+              <joint name="1114_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+              <geom name="1114" quat="0.991445 0 0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            </body>
+          </body>
+        </body>
+        <body name="24" pos="0 -0.36 0.45" gravcomp="0">
+          <joint name="24_joint" pos="0 0.3 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+          <geom name="24" quat="0.991445 0 -0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+          <body name="124" pos="0 -0.3 0" gravcomp="0">
+            <joint name="124_joint" pos="0 0.3 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+            <geom name="124" quat="0.991445 0 -0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            <body name="1124" pos="0 -0.3 0" gravcomp="0">
+              <joint name="1124_joint" pos="0 0.3 0" axis="1 0 0" limited="true" range="-0.698132 0.698132"/>
+              <geom name="1124" quat="0.991445 0 -0.130526 0" type="mesh" fluidshape="ellipsoid" mesh="wing"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <equality>
+    <joint joint1="1_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="4_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="2_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="3_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="11_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="21_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="12_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="22_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="13_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="23_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="14_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="24_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="111_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="121_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="112_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="122_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="113_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="123_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="114_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="124_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1111_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1121_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1112_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1122_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1113_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1123_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1114_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1124_joint" polycoef="0 1 0 0 0"/>
+  </equality>
+  <actuator>
+    <general name="1_joint" joint="1_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="4_joint" joint="4_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="2_joint" joint="2_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="3_joint" joint="3_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="11_joint" joint="11_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="21_joint" joint="21_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="12_joint" joint="12_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="22_joint" joint="22_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="13_joint" joint="13_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="23_joint" joint="23_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="14_joint" joint="14_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="24_joint" joint="24_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="111_joint" joint="111_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="121_joint" joint="121_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="112_joint" joint="112_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="122_joint" joint="122_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="113_joint" joint="113_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="123_joint" joint="123_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="114_joint" joint="114_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="124_joint" joint="124_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1111_joint" joint="1111_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1121_joint" joint="1121_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1112_joint" joint="1112_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1122_joint" joint="1122_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1113_joint" joint="1113_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1123_joint" joint="1123_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1114_joint" joint="1114_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1124_joint" joint="1124_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+  </actuator>
+</mujoco>

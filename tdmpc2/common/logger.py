@@ -92,15 +92,37 @@ class VideoRecorder:
 		self.record(env)
 
 	def record(self, env):
-		if self.enabled:
-			self.frames.append(env.render())
+		if not self.enabled:
+			return
+		frame = None
+		try:
+			frame = env.render(mode='rgb_array')
+		except TypeError:
+			frame = env.render()
+		if frame is None:
+			return
+		frame = np.asarray(frame)
+		if frame.ndim == 2:
+			frame = np.repeat(frame[..., None], 3, axis=2)
+		if frame.ndim != 3:
+			return
+		if frame.shape[2] == 4:
+			frame = frame[..., :3]
+		if frame.shape[2] != 3:
+			return
+		self.frames.append(frame)
 
 	def save(self, step, key='videos/eval_video'):
-		if self.enabled and len(self.frames) > 0:
-			frames = np.stack(self.frames)
-			return self._wandb.log(
-				{key: self._wandb.Video(frames.transpose(0, 3, 1, 2), fps=self.fps, format='mp4')}, step=step
-			)
+		if not self.enabled or len(self.frames) == 0:
+			return
+		frames = np.stack(self.frames)
+		if frames.ndim == 3:
+			frames = frames[None, ...]
+		if frames.ndim != 4 or frames.shape[-1] != 3:
+			return
+		return self._wandb.log(
+			{key: self._wandb.Video(frames.transpose(0, 3, 1, 2), fps=self.fps, format='mp4')}, step=step
+		)
 
 
 class Logger:

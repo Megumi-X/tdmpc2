@@ -1,0 +1,158 @@
+<mujoco model="propeller_fluid_test">
+  <option integrator="RK4" gravity="0 0 -9.8" timestep="0.004"/>
+  <compiler angle="degree" coordinate="global" inertiafromgeom="true" eulerseq="xyz" meshdir="/home/xiaoyu/BodyGen/assets/meshes"/>    
+  <asset>
+    <texture name="skybox" type="skybox" builtin="gradient" rgb1=".2 .3 .4" rgb2="0 0 0" width="800" height="800" mark="random" markrgb="1 1 1"/>
+    <texture name="grid" type="2d" builtin="checker" rgb1=".4 .1 .4" rgb2=".1 .4 .1" width="300" height="300" mark="edge" markrgb=".3 .2 .3"/>
+    <material name="grid" texture="grid" texrepeat="1 1" texuniform="true" reflectance=".1"/>
+    <texture name="grid_gd" type="2d" builtin="checker" rgb1=".2 .1 .2" rgb2=".3 .2 .3" width="300" height="300" mark="edge" markrgb=".3 .2 .3"/>
+    <material name="grid_gd" texture="grid_gd" texrepeat="1 1" texuniform="true" reflectance=".2"/>
+    <material name="self" rgba=".7 .5 .3 1"/>
+    <mesh name="tire" file="tire.stl" scale="0.75 0.75 0.75"/>
+  </asset>
+  <visual>
+    <headlight ambient=".4 .4 .4" diffuse=".8 .8 .8" specular="0.1 0.1 0.1"/>
+    <map znear=".001"/>
+    <quality shadowsize="16384"/>
+    <global offheight="1000" offwidth="1000"/>
+  </visual>
+  <default>
+    <joint armature="1" limited="true"/>
+    <geom conaffinity="0" condim="3" density="1e3" friction="1 0.5 0.5" margin="0.01" rgba=".7 .5 .3 1" solref="0.02 2.0"/>
+  </default>
+  <worldbody>
+    <light cutoff="100" diffuse="1 1 1" dir="0.3 0 -1.3" directional="true" exponent="1" pos="-30 0 130" specular=".1 .1 .1"/>
+    <geom conaffinity="1" condim="3" name="floor" pos="0 0 -0.2" rgba="1 1 1 1" size="1000 1000 .125" type="plane" material="grid_gd"/>
+    <geom conaffinity="1" condim="3" name="wall1" pos="500 100 10" size="495 99.4 10.2" type="box" rgba="0.8 0.6 0.4 0.5"/>
+    <geom conaffinity="1" condim="3" name="wall2" pos="500 -100 10" size="495 99.4 10.2" type="box" rgba="0.8 0.6 0.4 0.5"/>
+    <body name="0" pos="0 0 0">
+      <camera name="track" mode="trackcom" pos="0 -4 1" xyaxes="1 0 0 0 0.2 1"/>
+      <joint armature="0" damping="0" limited="false" margin="0.01" name="root" pos="0 0 0" type="free"/>
+      <geom fromto="-0.5 0 0 0.5 0 0" name="0_0" size="0.08" type="capsule"/>
+      <body name="1" pos="0.5 0 0">
+        <joint axis="0 1 0" name="1_joint" pos="0.5 0 0" range="-80 80" type="hinge"/>
+        <geom name="1" pos="0.5 0 0" type="sphere" size="0.001"/>
+        <body name="11" pos="0.5 0 0">
+          <joint axis="1 0 0" name="11_joint" pos="0.5 0 0" range="-80 80" type="hinge"/>
+          <geom name="11" fromto="0.5 0 0 0.5 0.4 0" size="0.04" type="capsule"/>
+          <body name="111" pos="0.5 0.4 0">
+            <joint axis="1 0 0" name="111_joint" pos="0.5 0.4 0" range="-80 80" type="hinge"/>
+            <geom name="111" fromto="0.5 0.4 0 0.5 0.8 0" size="0.04" type="capsule"/>
+            <body name="1111" pos="0.5 0.8 0">
+              <joint axis="1 0 0" name="1111_joint" pos="0.5 0.8 0" type="hinge" range="-80 80"/>
+              <geom name="1111" pos="0.5 0.8 0" size="0.001" type="sphere"/>
+              <body name="11111" pos="0.5 0.8 0">
+                <joint axis="0 1 0" name="11111_joint" pos="0.5 0.8 0" type="hinge" limited="false"/>
+                <geom name="11111" pos="0.5 0.8 0" type="mesh" mesh="tire" friction="1.5 0.15 0.03" material="grid"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="2" pos="0.5 0 0">
+        <joint axis="0 1 0" name="2_joint" pos="0.5 0 0" range="-80 80" type="hinge"/>
+        <geom name="2" pos="0.5 0 0" type="sphere" size="0.001"/>
+        <body name="12" pos="0.5 0 0">
+          <joint axis="1 0 0" name="12_joint" pos="0.5 0 0" range="-80 80" type="hinge"/>
+          <geom name="12" fromto="0.5 0 0 0.5 -0.4 0" size="0.04" type="capsule"/>
+          <body name="112" pos="0.5 -0.4 0">
+            <joint axis="1 0 0" name="112_joint" pos="0.5 -0.4 0" range="-80 80" type="hinge"/>
+            <geom name="112" fromto="0.5 -0.4 0 0.5 -0.8 0" size="0.04" type="capsule"/>
+            <body name="1112" pos="0.5 -0.8 0">
+              <joint axis="1 0 0" name="1112_joint" pos="0.5 -0.8 0" type="hinge" range="-80 80"/>
+              <geom name="1112" pos="0.5 -0.8 0" size="0.001" type="sphere"/>
+              <body name="11112" pos="0.5 -0.8 0">
+                <joint axis="0 1 0" name="11112_joint" pos="0.5 -0.8 0" type="hinge" limited="false"/>
+                <geom name="11112" pos="0.5 -0.8 0" type="mesh" mesh="tire" friction="1.5 0.15 0.03" material="grid"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="3" pos="0.5 0 0">
+        <joint axis="0 1 0" name="3_joint" pos="-0.5 0 0" range="-80 80" type="hinge"/>
+        <geom name="3" pos="-0.5 0 0" type="sphere" size="0.001"/>
+        <body name="13" pos="-0.5 0 0">
+          <joint axis="1 0 0" name="13_joint" pos="-0.5 0 0" range="-80 80" type="hinge"/>
+          <geom name="13" fromto="-0.5 0 0 -0.5 0.4 0" size="0.04" type="capsule"/>
+          <body name="113" pos="-0.5 0.4 0">
+            <joint axis="1 0 0" name="113_joint" pos="-0.5 0.4 0" range="-80 80" type="hinge"/>
+            <geom name="113" fromto="-0.5 0.4 0 -0.5 0.8 0" size="0.04" type="capsule"/>
+            <body name="1113" pos="-0.5 0.8 0">
+              <joint axis="1 0 0" name="1113_joint" pos="-0.5 0.8 0" type="hinge" range="-80 80"/>
+              <geom name="1113" pos="-0.5 0.8 0" size="0.001" type="sphere"/>
+              <body name="11113" pos="-0.5 0.8 0">
+                <joint axis="0 1 0" name="11113_joint" pos="-0.5 0.8 0" type="hinge" limited="false"/>
+                <geom name="11113" pos="-0.5 0.8 0" type="mesh" mesh="tire" friction="1.5 0.15 0.03" material="grid"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="4" pos="0.5 0 0">
+        <joint axis="0 1 0" name="4_joint" pos="-0.5 0 0" range="-80 80" type="hinge"/>
+        <geom name="4" pos="-0.5 0 0" type="sphere" size="0.001"/>
+        <body name="14" pos="-0.5 0 0">
+          <joint axis="1 0 0" name="14_joint" pos="-0.5 0 0" range="-80 80" type="hinge"/>
+          <geom name="14" fromto="-0.5 0 0 -0.5 -0.4 0" size="0.04" type="capsule"/>
+          <body name="114" pos="-0.5 -0.4 0">
+            <joint axis="1 0 0" name="114_joint" pos="-0.5 -0.4 0" range="-80 80" type="hinge"/>
+            <geom name="114" fromto="-0.5 -0.4 0 -0.5 -0.8 0" size="0.04" type="capsule"/>
+            <body name="1114" pos="-0.5 -0.8 0">
+              <joint axis="1 0 0" name="1114_joint" pos="-0.5 -0.8 0" type="hinge" range="-80 80"/>
+              <geom name="1114" pos="-0.5 -0.8 0" size="0.001" type="sphere"/>
+              <body name="11114" pos="-0.5 -0.8 0">
+                <joint axis="0 1 0" name="11114_joint" pos="-0.5 -0.8 0" type="hinge" limited="false"/>
+                <geom name="11114" pos="-0.5 -0.8 0" type="mesh" mesh="tire" friction="1.5 0.15 0.03" material="grid"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <equality>
+    <joint joint1="11111_joint"/>
+    <joint joint1="11112_joint"/>
+    <joint joint1="11113_joint"/>
+    <joint joint1="11114_joint"/>
+    <joint joint1="1111_joint"/>
+    <joint joint1="1112_joint"/>
+    <joint joint1="1113_joint"/>
+    <joint joint1="1114_joint"/>
+    <joint joint1="1_joint"/>
+    <joint joint1="2_joint"/>
+    <joint joint1="3_joint"/>
+    <joint joint1="4_joint"/>
+    <joint joint1="11_joint"/>
+    <joint joint1="12_joint"/>
+    <joint joint1="111_joint"/>
+    <joint joint1="112_joint"/>
+    <joint joint1="13_joint"/>
+    <joint joint1="14_joint"/>
+    <joint joint1="113_joint"/>
+    <joint joint1="114_joint"/>
+  </equality>
+  <actuator>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="11111_joint" gear="300" name="11111_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="11112_joint" gear="300" name="11112_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="11113_joint" gear="300" name="11113_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="11114_joint" gear="300" name="11114_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="1111_joint" gear="300" name="1111_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="1112_joint" gear="300" name="1112_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="1113_joint" gear="300" name="1113_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="1114_joint" gear="300" name="1114_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="1_joint" gear="300" name="1_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="2_joint" gear="300" name="2_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="3_joint" gear="300" name="3_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="4_joint" gear="300" name="4_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="11_joint" gear="300" name="11_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="12_joint" gear="300" name="12_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="111_joint" gear="300" name="111_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="112_joint" gear="300" name="112_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="13_joint" gear="300" name="13_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="14_joint" gear="300" name="14_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="113_joint" gear="300" name="113_joint"/>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" joint="114_joint" gear="300" name="114_joint"/>   
+  </actuator>
+</mujoco>

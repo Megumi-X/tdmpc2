@@ -1,0 +1,157 @@
+<mujoco model="propeller_fluid_test">
+  <compiler angle="radian" meshdir="/home/xiaoyu/BodyGen/assets/meshes/" autolimits="true"/>
+  <option timestep="0.004" gravity="0 0 -9.8" integrator="RK4"/>
+  <visual>
+    <global offwidth="1000" offheight="1000"/>
+    <quality shadowsize="16384"/>
+    <headlight ambient="0.4 0.4 0.4" diffuse="0.8 0.8 0.8" specular="0.1 0.1 0.1"/>
+    <map znear="0.001"/>
+  </visual>
+  <default class="main">
+    <joint limited="true" armature="1"/>
+    <geom conaffinity="0" friction="1 0.5 0.5" solref="0.02 2" margin="0.01" rgba="0.7 0.5 0.3 1"/>
+  </default>
+  <asset>
+    <texture type="skybox" name="skybox" builtin="gradient" mark="random" rgb1="0.2 0.3 0.4" rgb2="0 0 0" markrgb="1 1 1" width="800" height="4800"/>
+    <texture type="2d" name="grid" builtin="checker" mark="edge" rgb1="0.4 0.1 0.4" rgb2="0.1 0.4 0.1" markrgb="0.3 0.2 0.3" width="300" height="300"/>
+    <texture type="2d" name="grid_gd" builtin="checker" mark="edge" rgb1="0.2 0.1 0.2" rgb2="0.3 0.2 0.3" markrgb="0.3 0.2 0.3" width="300" height="300"/>
+    <material name="grid" texture="grid" texuniform="true" reflectance="0.1"/>
+    <material name="grid_gd" texture="grid_gd" texuniform="true" reflectance="0.2"/>
+    <material name="self" rgba="0.7 0.5 0.3 1"/>
+    <mesh name="tire" file="tire.stl" scale="0.75 0.75 0.75"/>
+  </asset>
+  <worldbody>
+    <geom name="floor" size="400 400 0.125" pos="0 0 -0.2" type="plane" conaffinity="1" material="grid_gd" rgba="1 1 1 1"/>
+    <geom name="stair_0" type="box" size="0.25 400 0.2" pos="-4.164891755473818 0 0.0" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_1" type="box" size="0.25 400 0.4" pos="-3.6648917554738176 0 0.2" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_2" type="box" size="0.25 400 0.6000000000000001" pos="-3.1648917554738176 0 0.4000000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_3" type="box" size="0.25 400 0.8" pos="-2.6648917554738176 0 0.6000000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_4" type="box" size="0.25 400 1.0" pos="-2.1648917554738176 0 0.8" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_5" type="box" size="0.25 400 1.2000000000000002" pos="-1.6648917554738176 0 1.0000000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_6" type="box" size="0.25 400 1.4000000000000001" pos="-1.1648917554738176 0 1.2000000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_7" type="box" size="0.25 400 1.6" pos="-0.6648917554738176 0 1.4000000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_8" type="box" size="0.25 400 1.8" pos="-0.16489175547381762 0 1.6" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_9" type="box" size="0.25 400 2.0" pos="0.3351082445261824 0 1.8" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_10" type="box" size="0.25 400 2.2" pos="0.8351082445261824 0 2.0" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_11" type="box" size="0.25 400 2.4000000000000004" pos="1.3351082445261824 0 2.2" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_12" type="box" size="0.25 400 2.6" pos="1.8351082445261824 0 2.4" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_13" type="box" size="0.25 400 2.8000000000000003" pos="2.3351082445261824 0 2.6" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_14" type="box" size="0.25 400 3.0" pos="2.8351082445261824 0 2.8" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_15" type="box" size="0.25 400 3.2" pos="3.3351082445261824 0 3.0" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_16" type="box" size="0.25 400 3.4000000000000004" pos="3.8351082445261824 0 3.2" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_17" type="box" size="0.25 400 3.6" pos="4.335108244526182 0 3.4" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_18" type="box" size="0.25 400 3.8000000000000003" pos="4.835108244526182 0 3.6" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_19" type="box" size="0.25 400 4.0" pos="5.335108244526182 0 3.8" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_20" type="box" size="0.25 400 4.2" pos="5.835108244526182 0 4.0" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_21" type="box" size="0.25 400 4.4" pos="6.335108244526182 0 4.2" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_22" type="box" size="0.25 400 4.6000000000000005" pos="6.835108244526182 0 4.4" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_23" type="box" size="0.25 400 4.800000000000001" pos="7.335108244526182 0 4.6000000000000005" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_24" type="box" size="0.25 400 5.0" pos="7.835108244526182 0 4.8" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_25" type="box" size="0.25 400 5.2" pos="8.335108244526182 0 5.0" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_26" type="box" size="0.25 400 5.4" pos="8.835108244526182 0 5.2" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_27" type="box" size="0.25 400 5.6000000000000005" pos="9.335108244526182 0 5.4" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_28" type="box" size="0.25 400 5.800000000000001" pos="9.835108244526182 0 5.6000000000000005" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_29" type="box" size="0.25 400 6.0" pos="10.335108244526182 0 5.8" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_30" type="box" size="0.25 400 6.2" pos="10.835108244526182 0 6.0" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_31" type="box" size="0.25 400 6.4" pos="11.335108244526182 0 6.2" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_32" type="box" size="0.25 400 6.6000000000000005" pos="11.835108244526182 0 6.4" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_33" type="box" size="31.262350715010484 400 6.6000000000000005" pos="43.34745895953667 0 6.4" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_34" type="box" size="0.25 400 6.800000000000001" pos="74.85980967454715 0 6.6000000000000005" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_35" type="box" size="0.25 400 7.000000000000001" pos="75.35980967454715 0 6.800000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_36" type="box" size="0.25 400 7.200000000000001" pos="75.85980967454715 0 7.000000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_37" type="box" size="0.25 400 7.4" pos="76.35980967454715 0 7.2" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_38" type="box" size="0.25 400 7.6000000000000005" pos="76.85980967454715 0 7.4" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_39" type="box" size="0.25 400 7.800000000000001" pos="77.35980967454715 0 7.6000000000000005" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_40" type="box" size="0.25 400 8.000000000000002" pos="77.85980967454715 0 7.800000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_41" type="box" size="0.25 400 8.200000000000001" pos="78.35980967454715 0 8.000000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_42" type="box" size="0.25 400 8.4" pos="78.85980967454715 0 8.200000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_43" type="box" size="0.25 400 8.6" pos="79.35980967454715 0 8.4" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_44" type="box" size="0.25 400 8.8" pos="79.85980967454715 0 8.600000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_45" type="box" size="0.25 400 9.000000000000002" pos="80.35980967454715 0 8.800000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_46" type="box" size="0.25 400 9.200000000000001" pos="80.85980967454715 0 9.000000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_47" type="box" size="0.25 400 9.4" pos="81.35980967454715 0 9.200000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_48" type="box" size="0.25 400 9.6" pos="81.85980967454715 0 9.4" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_49" type="box" size="0.25 400 9.8" pos="82.35980967454715 0 9.600000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_50" type="box" size="0.25 400 10.000000000000002" pos="82.85980967454715 0 9.800000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_51" type="box" size="0.25 400 10.200000000000001" pos="83.35980967454715 0 10.000000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_52" type="box" size="0.25 400 10.4" pos="83.85980967454715 0 10.200000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_53" type="box" size="0.25 400 10.6" pos="84.35980967454715 0 10.4" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_54" type="box" size="0.25 400 10.8" pos="84.85980967454715 0 10.600000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_55" type="box" size="0.25 400 11.000000000000002" pos="85.35980967454715 0 10.800000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_56" type="box" size="0.25 400 11.200000000000001" pos="85.85980967454715 0 11.000000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_57" type="box" size="0.25 400 11.4" pos="86.35980967454715 0 11.200000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_58" type="box" size="0.25 400 11.6" pos="86.85980967454715 0 11.4" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_59" type="box" size="0.25 400 11.8" pos="87.35980967454715 0 11.600000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_60" type="box" size="0.25 400 12.000000000000002" pos="87.85980967454715 0 11.800000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_61" type="box" size="0.25 400 12.200000000000001" pos="88.35980967454715 0 12.000000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_62" type="box" size="0.25 400 12.4" pos="88.85980967454715 0 12.200000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_63" type="box" size="0.25 400 12.6" pos="89.35980967454715 0 12.4" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_64" type="box" size="0.25 400 12.8" pos="89.85980967454715 0 12.600000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_65" type="box" size="454.94509516272643 400 12.8" pos="545.0549048372736 0 12.600000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="1" contype="1" material="grid_gd" friction="1.0 0.05 0.01" />
+    <light pos="-30 0 130" dir="0.22486 0 -0.974391" directional="true" cutoff="100" exponent="1" diffuse="1 1 1" specular="0.1 0.1 0.1"/>
+    <body name="0" pos="0 0 0" gravcomp="0">
+      <joint name="root" limited="false" type="free" margin="0.01" armature="0"/>
+      <geom name="0_0" size="0.08 0.5" quat="0.707107 0 -0.707107 0" type="capsule"/>
+      <camera name="track" pos="0 -4 1" quat="0.773342 0.633989 0 0" mode="trackcom"/>
+      <body name="1" pos="0.5 0 0" gravcomp="0">
+        <joint name="1_joint" pos="0 0 0" axis="0 1 0" range="-0.785398 0.785398"/>
+        <geom name="1" size="0.001"/>
+        <body name="11" pos="0 0 0" gravcomp="0">
+          <joint name="11_joint" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398"/>
+          <geom name="11" size="0.04 0.2" pos="0 0.2 0" quat="0.707107 0.707107 0 0" type="capsule"/>
+          <body name="111" pos="0 0.4 0" gravcomp="0">
+            <joint name="111_joint" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398"/>
+            <geom name="111" size="0.04 0.2" pos="0 0.2 0" quat="0.707107 0.707107 0 0" type="capsule"/>
+            <body name="1111" pos="0 0.4 0" gravcomp="0">
+              <joint name="1111_joint" pos="0 0 0" axis="0 0 1" range="-0.785398 0.785398"/>
+              <geom name="1111" size="0.001"/>
+              <body name="11111" pos="0 0 0" gravcomp="0">
+                <joint name="11111_joint" pos="0 0 0" axis="0 1 0" limited="false"/>
+                <geom name="11111" type="mesh" friction="1.5 0.15 0.03" material="grid" mesh="tire"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="2" pos="0.5 0 0" gravcomp="0">
+        <joint name="2_joint" pos="0 0 0" axis="0 1 0" range="-0.785398 0.785398"/>
+        <geom name="2" size="0.001"/>
+        <body name="12" pos="0 0 0" gravcomp="0">
+          <joint name="12_joint" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398"/>
+          <geom name="12" size="0.04 0.2" pos="0 -0.2 0" quat="0.707107 -0.707107 0 0" type="capsule"/>
+          <body name="112" pos="0 -0.4 0" gravcomp="0">
+            <joint name="112_joint" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398"/>
+            <geom name="112" size="0.04 0.2" pos="0 -0.2 0" quat="0.707107 -0.707107 0 0" type="capsule"/>
+            <body name="1112" pos="0 -0.4 0" gravcomp="0">
+              <joint name="1112_joint" pos="0 0 0" axis="0 0 1" range="-0.785398 0.785398"/>
+              <geom name="1112" size="0.001"/>
+              <body name="11112" pos="0 0 0" gravcomp="0">
+                <joint name="11112_joint" pos="0 0 0" axis="0 1 0" limited="false"/>
+                <geom name="11112" type="mesh" friction="1.5 0.15 0.03" material="grid" mesh="tire"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="3" pos="0.5 0 0" gravcomp="0">
+        <joint name="3_joint" pos="-1 0 0" axis="0 1 0" range="-0.785398 0.785398"/>
+        <geom name="3" size="0.001" pos="-1 0 0"/>
+        <body name="13" pos="-1 0 0" gravcomp="0">
+          <joint name="13_joint" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398"/>
+          <geom name="13" size="0.04 0.2" pos="0 0.2 0" quat="0.707107 0.707107 0 0" type="capsule"/>
+          <body name="113" pos="0 0.4 0" gravcomp="0">
+            <joint name="113_joint" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398"/>
+            <geom name="113" size="0.04 0.2" pos="0 0.2 0" quat="0.707107 0.707107 0 0" type="capsule"/>
+            <body name="1113" pos="0 0.4 0" gravcomp="0">
+              <joint name="1113_joint" pos="0 0 0" axis="0 0 1" range="-0.785398 0.785398"/>
+              <geom name="1113" size="0.001"/>
+              <body name="11113" pos="0 0 0" gravcomp="0">
+                <joint name="11113_joint" pos="0 0 0" axis="0 1 0" limited="false"/>
+                <geom name="11113" type="mesh" friction="1.5 0.15 0.03" material="grid" mesh="tire"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="4" pos="0.5 0 0" gravcomp="0">
+        <joint name="4_joint" pos="-1 0 0" axis="0 1 0" range="-0.785398 0.785398"/>
+        <geom name="4" size="0.001" pos="-1 0 0"/>
+        <body name="14" pos="-1 0 0" gravcomp="0">
+          <joint name="14_joint" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398"/>
+          <geom name="14" size="0.04 0.2" pos="0 -0.2 0" quat="0.707107 -0.707107 0 0" type="capsule"/>
+          <body name="114" pos="0 -0.4 0" gravcomp="0">
+            <joint name="114_joint" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398"/>
+            <geom name="114" size="0.04 0.2" pos="0 -0.2 0" quat="0.707107 -0.707107 0 0" type="capsule"/>
+            <body name="1114" pos="0 -0.4 0" gravcomp="0">
+              <joint name="1114_joint" pos="0 0 0" axis="0 0 1" range="-0.785398 0.785398"/>
+              <geom name="1114" size="0.001"/>
+              <body name="11114" pos="0 0 0" gravcomp="0">
+                <joint name="11114_joint" pos="0 0 0" axis="0 1 0" limited="false"/>
+                <geom name="11114" type="mesh" friction="1.5 0.15 0.03" material="grid" mesh="tire"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <equality>
+    <joint joint1="11111_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="11112_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="11113_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="11114_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1111_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1112_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1113_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1114_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="2_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="3_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="4_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="11_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="12_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="111_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="112_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="13_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="14_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="113_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="114_joint" polycoef="0 1 0 0 0"/>
+  </equality>
+  <actuator>
+    <general name="11111_joint" joint="11111_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="11112_joint" joint="11112_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="11113_joint" joint="11113_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="11114_joint" joint="11114_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1111_joint" joint="1111_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1112_joint" joint="1112_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1113_joint" joint="1113_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1114_joint" joint="1114_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1_joint" joint="1_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="2_joint" joint="2_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="3_joint" joint="3_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="4_joint" joint="4_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="11_joint" joint="11_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="12_joint" joint="12_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="111_joint" joint="111_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="112_joint" joint="112_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="13_joint" joint="13_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="14_joint" joint="14_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="113_joint" joint="113_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="114_joint" joint="114_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+  </actuator>
+</mujoco>

@@ -1,0 +1,158 @@
+<mujoco model="propeller_fluid_test">
+  <compiler angle="radian" meshdir="/home/xiaoyu/BodyGen/assets/meshes/" autolimits="true"/>
+  <option timestep="0.004" gravity="0 0 -9.8" integrator="RK4"/>
+  <visual>
+    <global offwidth="1000" offheight="1000"/>
+    <quality shadowsize="16384"/>
+    <headlight ambient="0.4 0.4 0.4" diffuse="0.8 0.8 0.8" specular="0.1 0.1 0.1"/>
+    <map znear="0.001"/>
+  </visual>
+  <default class="main">
+    <joint limited="true" armature="1"/>
+    <geom conaffinity="0" friction="1 0.5 0.5" solref="0.02 2" margin="0.01" rgba="0.7 0.5 0.3 1"/>
+  </default>
+  <asset>
+    <texture type="skybox" name="skybox" builtin="gradient" mark="random" rgb1="0.2 0.3 0.4" rgb2="0 0 0" markrgb="1 1 1" width="800" height="4800"/>
+    <texture type="2d" name="grid" builtin="checker" mark="edge" rgb1="0.4 0.1 0.4" rgb2="0.1 0.4 0.1" markrgb="0.3 0.2 0.3" width="300" height="300"/>
+    <texture type="2d" name="grid_gd" builtin="checker" mark="edge" rgb1="0.2 0.1 0.2" rgb2="0.3 0.2 0.3" markrgb="0.3 0.2 0.3" width="300" height="300"/>
+    <material name="grid" texture="grid" texuniform="true" reflectance="0.1"/>
+    <material name="grid_gd" texture="grid_gd" texuniform="true" reflectance="0.2"/>
+    <material name="self" rgba="0.7 0.5 0.3 1"/>
+    <mesh name="tire" file="tire.stl" scale="0.75 0.75 0.75"/>
+  </asset>
+  <worldbody>
+    <geom name="floor" size="1000 1000 0.125" pos="0 0 -0.2" type="plane" conaffinity="1" material="grid_gd" rgba="1 1 1 1"/>
+    <geom name="wall1" size="495 99.4 10.2" pos="500 100 10" type="box" conaffinity="1" rgba="0.8 0.6 0.4 0.5"/>
+    <geom name="wall2" size="495 99.4 10.2" pos="500 -100 10" type="box" conaffinity="1" rgba="0.8 0.6 0.4 0.5"/>
+    <light pos="-30 0 130" dir="0.22486 0 -0.974391" directional="true" cutoff="100" exponent="1" diffuse="1 1 1" specular="0.1 0.1 0.1"/>
+    <body name="0" pos="0 0 0" gravcomp="0">
+      <joint name="root" limited="false" type="free" margin="0.01" armature="0"/>
+      <geom name="0_0" size="0.08 0.5" quat="0.707107 0 -0.707107 0" type="capsule"/>
+      <camera name="track" pos="0 -4 1" quat="0.773342 0.633989 0 0" mode="trackcom"/>
+      <body name="1" pos="0.5 0 0" gravcomp="0">
+        <joint name="1_joint" pos="0 0 0" axis="0 1 0" range="-1.39626 1.39626"/>
+        <geom name="1" size="0.001"/>
+        <body name="11" pos="0 0 0" gravcomp="0">
+          <joint name="11_joint" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626"/>
+          <geom name="11" size="0.04 0.2" pos="0 0.2 0" quat="0.707107 0.707107 0 0" type="capsule"/>
+          <body name="111" pos="0 0.4 0" gravcomp="0">
+            <joint name="111_joint" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626"/>
+            <geom name="111" size="0.04 0.2" pos="0 0.2 0" quat="0.707107 0.707107 0 0" type="capsule"/>
+            <body name="1111" pos="0 0.4 0" gravcomp="0">
+              <joint name="1111_joint" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626"/>
+              <geom name="1111" size="0.001"/>
+              <body name="11111" pos="0 0 0" gravcomp="0">
+                <joint name="11111_joint" pos="0 0 0" axis="0 1 0" limited="false"/>
+                <geom name="11111" type="mesh" friction="1.5 0.15 0.03" material="grid" mesh="tire"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="2" pos="0.5 0 0" gravcomp="0">
+        <joint name="2_joint" pos="0 0 0" axis="0 1 0" range="-1.39626 1.39626"/>
+        <geom name="2" size="0.001"/>
+        <body name="12" pos="0 0 0" gravcomp="0">
+          <joint name="12_joint" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626"/>
+          <geom name="12" size="0.04 0.2" pos="0 -0.2 0" quat="0.707107 -0.707107 0 0" type="capsule"/>
+          <body name="112" pos="0 -0.4 0" gravcomp="0">
+            <joint name="112_joint" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626"/>
+            <geom name="112" size="0.04 0.2" pos="0 -0.2 0" quat="0.707107 -0.707107 0 0" type="capsule"/>
+            <body name="1112" pos="0 -0.4 0" gravcomp="0">
+              <joint name="1112_joint" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626"/>
+              <geom name="1112" size="0.001"/>
+              <body name="11112" pos="0 0 0" gravcomp="0">
+                <joint name="11112_joint" pos="0 0 0" axis="0 1 0" limited="false"/>
+                <geom name="11112" type="mesh" friction="1.5 0.15 0.03" material="grid" mesh="tire"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="3" pos="0.5 0 0" gravcomp="0">
+        <joint name="3_joint" pos="-1 0 0" axis="0 1 0" range="-1.39626 1.39626"/>
+        <geom name="3" size="0.001" pos="-1 0 0"/>
+        <body name="13" pos="-1 0 0" gravcomp="0">
+          <joint name="13_joint" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626"/>
+          <geom name="13" size="0.04 0.2" pos="0 0.2 0" quat="0.707107 0.707107 0 0" type="capsule"/>
+          <body name="113" pos="0 0.4 0" gravcomp="0">
+            <joint name="113_joint" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626"/>
+            <geom name="113" size="0.04 0.2" pos="0 0.2 0" quat="0.707107 0.707107 0 0" type="capsule"/>
+            <body name="1113" pos="0 0.4 0" gravcomp="0">
+              <joint name="1113_joint" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626"/>
+              <geom name="1113" size="0.001"/>
+              <body name="11113" pos="0 0 0" gravcomp="0">
+                <joint name="11113_joint" pos="0 0 0" axis="0 1 0" limited="false"/>
+                <geom name="11113" type="mesh" friction="1.5 0.15 0.03" material="grid" mesh="tire"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="4" pos="0.5 0 0" gravcomp="0">
+        <joint name="4_joint" pos="-1 0 0" axis="0 1 0" range="-1.39626 1.39626"/>
+        <geom name="4" size="0.001" pos="-1 0 0"/>
+        <body name="14" pos="-1 0 0" gravcomp="0">
+          <joint name="14_joint" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626"/>
+          <geom name="14" size="0.04 0.2" pos="0 -0.2 0" quat="0.707107 -0.707107 0 0" type="capsule"/>
+          <body name="114" pos="0 -0.4 0" gravcomp="0">
+            <joint name="114_joint" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626"/>
+            <geom name="114" size="0.04 0.2" pos="0 -0.2 0" quat="0.707107 -0.707107 0 0" type="capsule"/>
+            <body name="1114" pos="0 -0.4 0" gravcomp="0">
+              <joint name="1114_joint" pos="0 0 0" axis="1 0 0" range="-1.39626 1.39626"/>
+              <geom name="1114" size="0.001"/>
+              <body name="11114" pos="0 0 0" gravcomp="0">
+                <joint name="11114_joint" pos="0 0 0" axis="0 1 0" limited="false"/>
+                <geom name="11114" type="mesh" friction="1.5 0.15 0.03" material="grid" mesh="tire"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <equality>
+    <joint joint1="11111_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="11112_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="11113_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="11114_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1111_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1112_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1113_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1114_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="1_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="2_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="3_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="4_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="11_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="12_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="111_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="112_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="13_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="14_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="113_joint" polycoef="0 1 0 0 0"/>
+    <joint joint1="114_joint" polycoef="0 1 0 0 0"/>
+  </equality>
+  <actuator>
+    <general name="11111_joint" joint="11111_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="11112_joint" joint="11112_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="11113_joint" joint="11113_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="11114_joint" joint="11114_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1111_joint" joint="1111_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1112_joint" joint="1112_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1113_joint" joint="1113_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1114_joint" joint="1114_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="1_joint" joint="1_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="2_joint" joint="2_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="3_joint" joint="3_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="4_joint" joint="4_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="11_joint" joint="11_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="12_joint" joint="12_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="111_joint" joint="111_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="112_joint" joint="112_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="13_joint" joint="13_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="14_joint" joint="14_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="113_joint" joint="113_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+    <general name="114_joint" joint="114_joint" ctrlrange="-1 1" gear="300 0 0 0 0 0" actdim="0"/>
+  </actuator>
+</mujoco>

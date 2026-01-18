@@ -1,0 +1,257 @@
+<mujoco model="wheel_leg">
+  <option integrator="implicitfast" gravity="0 0 -9.8" timestep="0.00033333"/>
+  <compiler angle="degree" coordinate="local" inertiafromgeom="false" eulerseq="xyz" meshdir="/home/xiaoyu/BodyGen/assets/meshes/Structure"/>
+  <asset>
+    <texture name="skybox" type="skybox" builtin="gradient" rgb1=".2 .3 .4" rgb2="0 0 0" width="800" height="800" mark="random" markrgb="1 1 1"/>
+    <texture name="grid" type="2d" builtin="checker" rgb1=".4 .1 .4" rgb2=".1 .4 .1" width="300" height="300" mark="edge" markrgb=".3 .2 .3"/>
+    <material name="grid" texture="grid" texrepeat="10 10" texuniform="true" reflectance="0"/>
+    <texture name="grid_gd" type="2d" builtin="checker" rgb1=".2 .1 .2" rgb2=".3 .2 .3" width="300" height="300" mark="edge" markrgb=".3 .2 .3"/>
+    <material name="grid_gd" texture="grid_gd" texrepeat="10 10" texuniform="true" reflectance="0"/>
+    <material name="self" rgba=".7 .5 .3 1"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="1x_battery_cover" file="1x_battery_cover.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="1x_body_center_connector" file="1x_body_center_connector.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="2x_front_rear_body_cover" file="2x_front_rear_body_cover.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="2x_body" file="2x_body.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="4x_rear_small_arm" file="4x_rear_small_arm.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="4x_wheel_hub" file="4x_wheel_hub.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="4x_wheel_mount" file="4x_wheel_mount.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="4x_wheel_axle_cap" file="4x_wheel_axle_cap.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="4x_front_small_arm" file="4x_front_small_arm.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="4x_tire" file="4x_tire.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="8x_servo_cover" file="8x_servo_cover.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="8x_metal_servo_leg" file="8x_metal_servo_leg.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="8x_outer_mount" file="8x_outer_mount.stl"/>
+    <mesh scale="1e-3 1e-3 1e-3" name="camera" file="camera.stl"/>
+  </asset>
+  <visual>
+    <headlight ambient=".4 .4 .4" diffuse=".8 .8 .8" specular="0.1 0.1 0.1"/>
+    <map znear=".001"/>
+    <quality shadowsize="16384"/>
+    <global offheight="1000" offwidth="1000"/>
+  </visual>
+  <default>
+    <joint armature="1e-9" limited="true" range="-150 150" damping="1.5e-4" frictionloss="1.5e-3"/>
+    <geom contype="4" conaffinity="7" condim="3" density="1100" friction="1.0 0.05 0.01" margin="5e-4" rgba=".7 .5 .3 1" solref="0.001 1.5"/>
+    <default class="motor">
+      <motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="0.03"/>
+    </default>
+    <default class="servo">
+      <position ctrllimited="true" forcelimited="true" forcerange="-0.5 0.5" kp="20" dampratio="1.0"/>
+    </default>
+    <default class="tire">
+      <geom type="mesh" mesh="4x_tire" contype="4" conaffinity="7" friction="1.161 0.05 0.01"/>
+    </default>
+    <equality solref="0.001 1.5"/>
+  </default>
+  <contact>
+    <exclude body1="0" body2="11"/>
+    <exclude body1="0" body2="12"/>
+    <exclude body1="0" body2="13"/>
+    <exclude body1="0" body2="14"/>
+    <exclude body1="111" body2="15"/>
+    <exclude body1="112" body2="16"/>
+    <exclude body1="113" body2="17"/>
+    <exclude body1="114" body2="18"/>
+  </contact>
+  <worldbody>
+    <light cutoff="100" diffuse="1 1 1" dir="0.3 0 -1.3" directional="true" exponent="1" pos="-30 0 130" specular=".1 .1 .1"/>
+    <geom conaffinity="6" contype="1" condim="3" name="floor" pos="0 0 -0.2" type="plane" size="400 400 0.00125" material="grid_gd" friction="1.0 0.05 0.01"/>
+    <geom name="stair_0" type="box" size="0.05000000000000071 0.45 0.024999999999999994" pos="-36.24976399832997 0 -0.17500000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="6" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_1" type="box" size="0.05000000000000071 0.45 0.05" pos="-36.14976399832997 0 -0.15000000000000002" rgba="1.0 1.0 1.0 1.0" conaffinity="6" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_2" type="box" size="0.04999999999999716 0.45 0.07500000000000001" pos="-36.04976399832997 0 -0.125" rgba="1.0 1.0 1.0 1.0" conaffinity="6" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_3" type="box" size="0.05000000000000071 0.45 0.1" pos="-35.94976399832997 0 -0.1" rgba="1.0 1.0 1.0 1.0" conaffinity="6" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_4" type="box" size="0.05000000000000071 0.45 0.125" pos="-35.849763998329976 0 -0.07500000000000001" rgba="1.0 1.0 1.0 1.0" conaffinity="6" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_5" type="box" size="0.05000000000000071 0.45 0.15000000000000002" pos="-35.74976399832997 0 -0.04999999999999999" rgba="1.0 1.0 1.0 1.0" conaffinity="6" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_6" type="box" size="0.05000000000000071 0.45 0.17500000000000002" pos="-35.64976399832997 0 -0.024999999999999994" rgba="1.0 1.0 1.0 1.0" conaffinity="6" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="stair_7" type="box" size="0.4143728105017743 0.45 0.17500000000000002" pos="-35.185391187828195 0 -0.024999999999999994" rgba="1.0 1.0 1.0 1.0" conaffinity="6" contype="1" material="grid_gd" friction="1.0 0.05 0.01" /><geom name="slope_0" type="box" size="0.39131189606246447 0.45 0.15652475842498542" pos="-34.49101837732642 0 -0.16500000000000023" rgba="1.0 1.0 1.0 1.0" conaffinity="6" contype="1" material="grid_gd" friction="1.0 0.05 0.01" euler="0 26.5650511770779 0" /><geom name="tunnel_0_ceiling" type="box" size="0.486092086129549 0.25 0.005" pos="-37.431930213514676 0 0.024999999999999994" rgba="0.0 1.0 1.0 0.7" conaffinity="6" contype="1" friction="1.0 0.05 0.01" /><geom name="tunnel_0_side_0" type="box" size="0.486092086129549 0.005 0.115" pos="-37.431930213514676 0.13 -0.085" rgba="0.0 1.0 1.0 0.7" conaffinity="6" contype="1" friction="1.0 0.05 0.01" /><geom name="tunnel_0_side_1" type="box" size="0.486092086129549 0.005 0.115" pos="-37.431930213514676 -0.13 -0.085" rgba="0.0 1.0 1.0 0.7" conaffinity="6" contype="1" friction="1.0 0.05 0.01" /><geom name="collision_0_0" type="box" size="0.8643728105017772 10 0.002" pos="-35.435391187828195 10.25 -0.2" rgba="0.0 0.0 0.0 0.0" conaffinity="6" contype="1" /><geom name="collision_0_1" type="box" size="0.8643728105017772 10 0.002" pos="-35.435391187828195 -10.25 -0.2" rgba="0.0 0.0 0.0 0.0" conaffinity="6" contype="1" /><geom name="collision_0_2" type="box" size="0.486092086129549 10 0.002" pos="-37.431930213514676 10.135 -0.2" rgba="0.0 0.0 0.0 0.0" conaffinity="6" contype="1" /><geom name="collision_0_3" type="box" size="0.486092086129549 10 0.002" pos="-37.431930213514676 -10.135 -0.2" rgba="0.0 0.0 0.0 0.0" conaffinity="6" contype="1" />
+    <body name="0" pos="0 0 0">
+      <camera name="track" mode="trackcom" pos="0 -1. .2" xyaxes="1 0 0 0 0.2 1"/>
+      <camera name="depth" mode="fixed" pos="0 0.024 0.11785" xyaxes="1 0 0 0 0 1" fovy="58.3"/>
+      <joint armature="0" damping="0" limited="false" margin="0.01" name="root" pos="0 0 0" type="free"/>
+      <inertial pos="2.4963e-05 0.00196587 0.0547468" mass="1.11581" fullinertia="0.00583318 0.00279925 0.00442584 -3.49225e-06 -6.79266e-07 9.04109e-05"/>
+      <geom name="0_0" pos="0 0 0" type="mesh" mesh="1x_body_center_connector" contype="2" conaffinity="5" euler="180 0 0" density="894"/>
+      <geom name="0_1" pos="0 0.1 0.0225" type="mesh" mesh="2x_body" contype="2" conaffinity="5"/>
+      <geom name="0_2" pos="0 -0.1 0.0225" type="mesh" mesh="2x_body" contype="2" conaffinity="5" euler="0 0 180"/>
+      <geom name="0_3" pos="0 -0.1 0.045" type="mesh" mesh="2x_front_rear_body_cover" density="1340"/>
+      <geom name="0_4" pos="0 0.1 0.045" type="mesh" mesh="2x_front_rear_body_cover" euler="0 0 180" density="1340"/>
+      <geom name="0_5" pos="-0.0435 0.027 0.0445" type="mesh" mesh="1x_battery_cover" euler="90 0 0" density="1244"/>
+      <geom name="0_6" pos="-0.025 0.12 0.0225" type="mesh" mesh="8x_outer_mount" contype="2" conaffinity="5" euler="0 0 90"/>
+      <geom name="0_7" pos="0.025 0.12 0.0225" type="mesh" mesh="8x_outer_mount" contype="2" conaffinity="5" euler="0 0 -90"/>
+      <geom name="0_8" pos="-0.025 -0.12 0.0225" type="mesh" mesh="8x_outer_mount" contype="2" conaffinity="5" euler="0 0 90"/>
+      <geom name="0_9" pos="0.025 -0.12 0.0225" type="mesh" mesh="8x_outer_mount" contype="2" conaffinity="5" euler="0 0 -90"/>
+      <geom name="0_10" pos="-0.0726 0.08 0.0225" type="mesh" mesh="8x_outer_mount" contype="2" conaffinity="5" euler="0 0 90"/>
+      <geom name="0_11" pos="0.0726 0.08 0.0225" type="mesh" mesh="8x_outer_mount" contype="2" conaffinity="5" euler="0 0 -90"/>
+      <geom name="0_12" pos="-0.0726 -0.08 0.0225" type="mesh" mesh="8x_outer_mount" contype="2" conaffinity="5" euler="0 0 90"/>
+      <geom name="0_13" pos="0.0726 -0.08 0.0225" type="mesh" mesh="8x_outer_mount" contype="2" conaffinity="5" euler="0 0 -90"/>
+      <geom name="0_14" pos="-0.04 0.12 0.0225" type="mesh" mesh="8x_servo_cover" contype="2" conaffinity="5" euler="0 -90 0"/>
+      <geom name="0_15" pos="0.04 0.12 0.0225" type="mesh" mesh="8x_servo_cover" contype="2" conaffinity="5" euler="0 90 0"/>
+      <geom name="0_16" pos="-0.04 -0.12 0.0225" type="mesh" mesh="8x_servo_cover" contype="2" conaffinity="5" euler="0 -90 0"/>
+      <geom name="0_17" pos="0.04 -0.12 0.0225" type="mesh" mesh="8x_servo_cover" contype="2" conaffinity="5" euler="0 90 0"/>
+      <geom name="0_18" pos="-0.0876 0.08 0.0225" type="mesh" mesh="8x_servo_cover" contype="2" conaffinity="5" euler="0 -90 0"/>
+      <geom name="0_19" pos="0.0876 0.08 0.0225" type="mesh" mesh="8x_servo_cover" contype="2" conaffinity="5" euler="0 90 0"/>
+      <geom name="0_20" pos="-0.0876 -0.08 0.0225" type="mesh" mesh="8x_servo_cover" contype="2" conaffinity="5" euler="0 -90 0"/>
+      <geom name="0_21" pos="0.0876 -0.08 0.0225" type="mesh" mesh="8x_servo_cover" contype="2" conaffinity="5" euler="0 90 0"/>
+      <geom name="0_22" pos="0 0 0.032" size="0.031 0.022 0.01" type="box" contype="2" conaffinity="5" density="2685"/>
+      <geom name="0_23" fromto="0.035 0.12 0.0225 0.01 0.12 0.0225" size="0.0065" type="cylinder" contype="2" conaffinity="5" density="4219"/>
+      <geom name="0_24" fromto="-0.035 0.12 0.0225 -0.01 0.12 0.0225" size="0.0065" type="cylinder" contype="2" conaffinity="5" density="4219"/>
+      <geom name="0_25" fromto="0.035 -0.12 0.0225 0.01 -0.12 0.0225" size="0.0065" type="cylinder" contype="2" conaffinity="5" density="4219"/>
+      <geom name="0_26" fromto="-0.035 -0.12 0.0225 -0.01 -0.12 0.0225" size="0.0065" type="cylinder" contype="2" conaffinity="5" density="4219"/>
+      <geom name="0_27" fromto="0.0826 0.08 0.0225 0.0576 0.08 0.0225" size="0.0065" type="cylinder" contype="2" conaffinity="5" density="4219"/>
+      <geom name="0_28" fromto="-0.0826 0.08 0.0225 -0.0576 0.08 0.0225" size="0.0065" type="cylinder" contype="2" conaffinity="5" density="4219"/>
+      <geom name="0_29" fromto="0.0826 -0.08 0.0225 0.0576 -0.08 0.0225" size="0.0065" type="cylinder" contype="2" conaffinity="5" density="4219"/>
+      <geom name="0_30" fromto="-0.0826 -0.08 0.0225 -0.0576 -0.08 0.0225" size="0.0065" type="cylinder" contype="2" conaffinity="5" density="4219"/>
+      <geom name="0_31" pos="0 0.07 0.018" size="0.0325 0.02 0.012" type="box" contype="2" conaffinity="5" density="1317"/>
+      <geom name="0_32" pos="0 -0.07 0.018" size="0.0325 0.02 0.012" type="box" contype="2" conaffinity="5" density="774"/>
+      <geom name="0_33" pos="0 0.0 0.097" type="mesh" mesh="camera" contype="2" conaffinity="5" density="996"/>
+      <body name="1" pos="0.0415 0.12 0.0225">
+        <joint name="1_joint" type="hinge" axis="1 0 0" pos="0 0 0" range="-14.38 180"/>
+        <inertial pos="0.0126505 -3.2542e-06 0.0187793" mass="0.00922627" fullinertia="5.78578e-09 5.23435e-09 6.46322e-10 -1.94211e-13 6.40298e-11 5.24505e-12"/>
+        <geom name="1" pos="0.009 0 0" type="mesh" mesh="8x_metal_servo_leg" density="905" euler="0 -90 180"/>
+        <body name="11" pos="0 0 -0.06">
+          <joint name="11_joint" type="hinge" axis="1 0 0" pos="0 0 0"/>
+          <inertial pos="0.0176381 -0.0155776 -0.0890994" mass="0.052301" fullinertia="2.25846e-05 1.9365e-05 8.81898e-06 1.35316e-06 2.71648e-06 -7.4541e-06"/>
+          <geom name="11_0" pos="0.0095 0 0" type="mesh" mesh="4x_front_small_arm" density="873" euler="-11.53695903 90 0"/>
+          <geom name="11_1" fromto="0.0085 -0.02 -0.0979795897113271 0.03 -0.02 -0.0979795897113271" size="0.015" type="cylinder" density="2698"/>
+          <body name="111" pos="0.0 -0.02 -0.0979795897113271">
+            <joint name="111_joint" type="hinge" axis="1 0 0" limited="false" pos="0 0 0" damping="1e-4" frictionloss="3e-3" armature="4e-6"/>
+            <inertial pos="0.0473363 7.48908e-07 3.17224e-07" mass="0.0104487" fullinertia="5.86751e-07 9.82435e-07 9.82435e-07 1.1128e-10 4.71246e-11 -4.04009e-14"/>
+            <site name="111_site" pos="0.0238 0 0"/>
+            <geom name="111_0" pos="0.03 0 0" type="mesh" mesh="4x_wheel_hub" euler="0 90 0"/>
+            <geom name="111_1" pos="0.05 0 0" class="tire" euler="0 -90 0"/>
+          </body>
+        </body>
+      </body>
+      <body name="2" pos="-0.0415 0.12 0.0225">
+        <joint name="2_joint" type="hinge" axis="1 0 0" pos="0 0 0" range="-14.38 180"/>
+        <inertial pos="-0.00534955 3.2542e-06 -0.0187793" mass="0.00922627" fullinertia="5.78578e-09 5.23435e-09 6.46322e-10 1.94211e-13 -6.40298e-11 5.24505e-12"/>
+        <geom name="2" pos="-0.009 0 0" type="mesh" mesh="8x_metal_servo_leg" density="905" euler="0 90 0"/>
+        <body name="12" pos="0 0 -0.06">
+          <joint name="12_joint" type="hinge" axis="1 0 0" pos="0 0 0"/>
+          <inertial pos="-0.0166494 -0.0157814 -0.0645279" mass="0.052301" fullinertia="0.000219679 0.000217584 9.27526e-06 -2.08245e-06 -1.65115e-05 -2.67854e-05"/>
+          <geom name="12_0" pos="-0.0095 0 0" type="mesh" mesh="4x_front_small_arm" density="873" euler="-11.53695903 -90 180"/>
+          <geom name="12_1" fromto="-0.0085 -0.02 -0.0979795897113271 -0.03 -0.02 -0.0979795897113271" size="0.015" type="cylinder" density="2698"/>
+          <body name="112" pos="0.0 -0.02 -0.0979795897113271">
+            <site name="112_site" pos="-0.0238 0 0"/>
+            <joint name="112_joint" type="hinge" axis="1 0 0" limited="false" pos="0 0 0" damping="1e-4" frictionloss="3e-3" armature="4e-6"/>
+            <inertial pos="-0.0473363 7.48908e-07 -3.17224e-07" mass="0.0104487" fullinertia="5.86751e-07 9.82435e-07 9.82435e-07 -1.1128e-10 4.71246e-11 4.04009e-14"/>
+            <geom name="112_0" pos="-0.03 0 0" type="mesh" mesh="4x_wheel_hub" euler="0 -90 0"/>
+            <geom name="112_1" pos="-0.05 0 0" class="tire" euler="0 90 0"/>
+          </body>
+        </body>
+      </body>
+      <body name="3" pos="0.0415 -0.12 0.0225">
+        <joint name="3_joint" type="hinge" axis="1 0 0" pos="0 0 0" range="-180 14.38"/>
+        <inertial pos="0.0126505 -3.2542e-06 0.0187793" mass="0.00922627" fullinertia="5.78578e-09 5.23435e-09 6.46322e-10 -1.94211e-13 6.40298e-11 5.24505e-12"/>
+        <geom name="3" pos="0.009 0 0" type="mesh" mesh="8x_metal_servo_leg" density="905" euler="0 -90 180"/>
+        <body name="13" pos="0 0 -0.06">
+          <joint name="13_joint" type="hinge" axis="1 0 0" pos="0 0 0"/>
+          <inertial pos="0.0176385 0.0155795 -0.0890994" mass="0.052301" fullinertia="2.25815e-05 1.93648e-05 8.81559e-06 -1.35226e-06 2.71583e-06 7.45092e-06"/>
+          <geom name="13_0" pos="0.0095 0 0" type="mesh" mesh="4x_front_small_arm" density="873" euler="11.53695903 90 0"/>
+          <geom name="13_1" fromto="0.0085 0.02 -0.0979795897113271 0.03 0.02 -0.0979795897113271" size="0.015" type="cylinder" density="2698"/>
+          <body name="113" pos="0.0 0.02 -0.0979795897113271">
+            <site name="113_site" pos="0.0238 0 0"/>
+            <joint name="113_joint" type="hinge" axis="1 0 0" limited="false" pos="0 0 0" damping="1e-4" frictionloss="3e-3" armature="4e-6"/>
+            <inertial pos="0.0473363 7.48908e-07 3.17224e-07" mass="0.0104487" fullinertia="5.86751e-07 9.82435e-07 9.82435e-07 1.1128e-10 4.71246e-11 -4.04009e-14"/>
+            <geom name="113_0" pos="0.03 0 0" type="mesh" mesh="4x_wheel_hub" euler="0 90 0"/>
+            <geom name="113_1" pos="0.05 0 0" class="tire" euler="0 -90 0"/>
+          </body>
+        </body>
+      </body>
+      <body name="4" pos="-0.0415 -0.12 0.0225">
+        <joint name="4_joint" type="hinge" axis="1 0 0" pos="0 0 0" range="-180 14.38"/>
+        <inertial pos="-0.00534955 3.2542e-06 -0.0187793" mass="0.00922627" fullinertia="5.78578e-09 5.23435e-09 6.46322e-10 1.94211e-13 -6.40298e-11 5.24505e-12"/>
+        <geom name="4" pos="-0.009 0 0" type="mesh" mesh="8x_metal_servo_leg" density="905" euler="0 90 0"/>
+        <body name="14" pos="0 0 -0.06">
+          <joint name="14_joint" type="hinge" axis="1 0 0" pos="0 0 0"/>
+          <inertial pos="-0.016649 0.0157795 -0.0645279" mass="0.052301" fullinertia="0.000219682 0.000217584 9.27865e-06 2.08369e-06 -1.65139e-05 2.67973e-05"/>
+          <geom name="14_0" pos="-0.0095 0 0" type="mesh" mesh="4x_front_small_arm" density="873" euler="11.53695903 -90 180"/>
+          <geom name="14_1" fromto="-0.0085 0.02 -0.0979795897113271 -0.03 0.02 -0.0979795897113271" size="0.015" type="cylinder" density="2698"/>
+          <body name="114" pos="0.0 0.02 -0.0979795897113271">
+            <site name="114_site" pos="-0.0238 0 0"/>
+            <joint name="114_joint" type="hinge" axis="1 0 0" limited="false" pos="0 0 0" damping="1e-4" frictionloss="3e-3" armature="4e-6"/>
+            <inertial pos="-0.0490207 7.48908e-07 -3.17224e-07" mass="0.0104487" fullinertia="5.86751e-07 1.08175e-06 1.08175e-06 -1.2446e-10 5.27078e-11 4.04009e-14"/>
+            <geom name="114_0" pos="-0.03 0 0" type="mesh" mesh="4x_wheel_hub" euler="0 -90 0"/>
+            <geom name="114_1" pos="-0.052 0 0" class="tire" euler="0 90 0"/>
+          </body>
+        </body>
+      </body>
+      <body name="5" pos="0.0891 0.08 0.0225">
+        <joint name="5_joint" type="hinge" axis="1 0 0" pos="0 0 0"/>
+        <inertial pos="0.0126505 -3.2542e-06 0.0187793" mass="0.00922627" fullinertia="5.78578e-09 5.23435e-09 6.46322e-10 -1.94211e-13 6.40298e-11 5.24505e-12"/>
+        <geom name="5" pos="0.009 0 0" type="mesh" mesh="8x_metal_servo_leg" density="905" euler="0 -90 180"/>
+        <body name="15" pos="0 0 -0.06">
+          <joint name="15_joint" type="hinge" axis="1 0 0" pos="0 0 0"/>
+          <inertial pos="0.0109499 0.00438854 -0.0646472" mass="0.0135879" fullinertia="5.97051e-06 5.04323e-06 1.2154e-06 3.89153e-07 -8.31045e-07 2.28682e-06"/>
+          <site name="15_site" pos="-0.0238 0.02 -0.0979795897113271"/>
+          <geom name="15_0" pos="0.0095 0 0" type="mesh" mesh="4x_rear_small_arm" density="873" euler="11.53695903 90 0"/>
+          <geom name="15_1" pos="0.00365 0.02 -0.0979795897113271" type="mesh" mesh="4x_wheel_mount" euler="0 0 90"/>
+          <geom name="15_2" pos="0.0055 0.02 -0.0979795897113271" type="mesh" mesh="4x_wheel_axle_cap" euler="0 0 90"/>
+        </body>
+      </body>
+      <body name="6" pos="-0.0891 0.08 0.0225">
+        <joint name="6_joint" type="hinge" axis="1 0 0" pos="0 0 0"/>
+        <inertial pos="-0.00534955 3.2542e-06 -0.0187793" mass="0.00922627" fullinertia="5.78578e-09 5.23435e-09 6.46322e-10 1.94211e-13 -6.40298e-11 5.24505e-12"/>
+        <geom name="6" pos="-0.009 0 0" type="mesh" mesh="8x_metal_servo_leg" density="905" euler="0 90 0"/>
+        <body name="16" pos="0 0 -0.06">
+          <site name="16_site" pos="0.0238 0.02 -0.0979795897113271"/>
+          <joint name="16_joint" type="hinge" axis="1 0 0" pos="0 0 0"/>
+          <inertial pos="-0.0059856 0.00539109 0.0167399" mass="0.0135879" fullinertia="5.88184e-05 5.78835e-05 9.44518e-07 -4.53927e-08 3.56816e-07 7.37196e-06"/>
+          <geom name="16_0" pos="-0.0095 0 0" type="mesh" mesh="4x_rear_small_arm" density="873" euler="11.53695903 -90 180"/>
+          <geom name="16_1" pos="-0.00365 0.02 -0.0979795897113271" type="mesh" mesh="4x_wheel_mount" euler="0 0 -90"/>
+          <geom name="16_2" pos="-0.0055 0.02 -0.0979795897113271" type="mesh" mesh="4x_wheel_axle_cap" euler="0 0 -90"/>
+        </body>
+      </body>
+      <body name="7" pos="0.0891 -0.08 0.0225">
+        <joint name="7_joint" type="hinge" axis="1 0 0" pos="0 0 0"/>
+        <inertial pos="0.0126505 -3.2542e-06 0.0187793" mass="0.00922627" fullinertia="5.78578e-09 5.23435e-09 6.46322e-10 -1.94211e-13 6.40298e-11 5.24505e-12"/>
+        <geom name="7" pos="0.009 0 0" type="mesh" mesh="8x_metal_servo_leg" density="905" euler="0 -90 180"/>
+        <body name="17" pos="0 0 -0.06">
+          <site name="17_site" pos="-0.0238 -0.02 -0.0979795897113271"/>
+          <joint name="17_joint" type="hinge" axis="1 0 0" pos="0 0 0"/>
+          <inertial pos="0.0109472 -0.00437831 -0.0646472" mass="0.0135879" fullinertia="5.97357e-06 5.0431e-06 1.21833e-06 -3.89494e-07 -8.3065e-07 -2.29009e-06"/>
+          <geom name="17_0" pos="0.0095 0 0" type="mesh" mesh="4x_rear_small_arm" density="873" euler="-11.53695903 90 0"/>
+          <geom name="17_1" pos="0.00365 -0.02 -0.0979795897113271" type="mesh" mesh="4x_wheel_mount" euler="0 0 90"/>
+          <geom name="17_2" pos="0.0055 -0.02 -0.0979795897113271" type="mesh" mesh="4x_wheel_axle_cap" euler="0 0 90"/>
+        </body>
+      </body>
+      <body name="8" pos="-0.0891 -0.08 0.0225">
+        <joint name="8_joint" type="hinge" axis="1 0 0" pos="0 0 0"/>
+        <inertial pos="-0.00534955 3.2542e-06 -0.0187793" mass="0.00922627" fullinertia="5.78578e-09 5.23435e-09 6.46322e-10 1.94211e-13 -6.40298e-11 5.24505e-12"/>
+        <geom name="8" pos="-0.009 0 0" type="mesh" mesh="8x_metal_servo_leg" density="905" euler="0 90 0"/>
+        <body name="18" pos="0 0 -0.06">
+          <site name="18_site" pos="0.0238 -0.02 -0.0979795897113271"/>
+          <joint name="18_joint" type="hinge" axis="1 0 0" pos="0 0 0"/>
+          <inertial pos="-0.00598829 -0.00540132 0.0167399" mass="0.0135879" fullinertia="5.88155e-05 5.78835e-05 9.41676e-07 4.55249e-08 3.58172e-07 -7.36073e-06"/>
+          <geom name="18_0" pos="-0.0095 0 0" type="mesh" mesh="4x_rear_small_arm" density="873" euler="-11.53695903 -90 180"/>
+          <geom name="18_1" pos="-0.00365 -0.02 -0.0979795897113271" type="mesh" mesh="4x_wheel_mount" euler="0 0 -90"/>
+          <geom name="18_2" pos="-0.0055 -0.02 -0.0979795897113271" type="mesh" mesh="4x_wheel_axle_cap" euler="0 0 -90"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <equality>
+    <joint name="1_joint" joint1="1_joint" polycoef="1.45 0 0 0 0"/>
+    <joint name="2_joint" joint1="2_joint" polycoef="1.45 0 0 0 0"/>
+    <joint name="3_joint" joint1="3_joint" polycoef="-1.45 0 0 0 0"/>
+    <joint name="4_joint" joint1="4_joint" polycoef="-1.45 0 0 0 0"/>
+    <joint name="5_joint" joint1="5_joint" polycoef="-1.45 0 0 0 0"/>
+    <joint name="6_joint" joint1="6_joint" polycoef="-1.45 0 0 0 0"/>
+    <joint name="7_joint" joint1="7_joint" polycoef="1.45 0 0 0 0"/>
+    <joint name="8_joint" joint1="8_joint" polycoef="1.45 0 0 0 0"/>
+    <joint name="111_joint" joint1="111_joint" polycoef="0 0 0 0 0"/>
+    <joint name="112_joint" joint1="112_joint" polycoef="0 0 0 0 0"/>
+    <joint name="113_joint" joint1="113_joint" polycoef="0 0 0 0 0"/>
+    <joint name="114_joint" joint1="114_joint" polycoef="0 0 0 0 0"/>
+    <connect name="1_wheel" site1="111_site" site2="15_site"/>
+    <connect name="2_wheel" site1="112_site" site2="16_site"/>
+    <connect name="3_wheel" site1="113_site" site2="17_site"/>
+    <connect name="4_wheel" site1="114_site" site2="18_site"/>
+  </equality>
+  <actuator>
+    <position joint="1_joint" name="1_joint" class="servo" ctrlrange="-0.25 1.9"/>
+    <position joint="2_joint" name="2_joint" class="servo" ctrlrange="-0.25 1.9"/>
+    <position joint="3_joint" name="3_joint" class="servo" ctrlrange="-2.5 0.25"/>
+    <position joint="4_joint" name="4_joint" class="servo" ctrlrange="-2.5 0.25"/>
+    <position joint="5_joint" name="5_joint" class="servo" ctrlrange="-2.5 0.25"/>
+    <position joint="6_joint" name="6_joint" class="servo" ctrlrange="-2.5 0.25"/>
+    <position joint="7_joint" name="7_joint" class="servo" ctrlrange="-0.25 2.5"/>
+    <position joint="8_joint" name="8_joint" class="servo" ctrlrange="-0.25 2.5"/>
+    <motor joint="111_joint" name="111_joint" class="motor"/>
+    <motor joint="112_joint" name="112_joint" class="motor"/>
+    <motor joint="113_joint" name="113_joint" class="motor"/>
+    <motor joint="114_joint" name="114_joint" class="motor"/>
+  </actuator>
+</mujoco>
